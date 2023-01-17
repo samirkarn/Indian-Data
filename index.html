@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon.png" type="image/icon">
+    <title>India Details</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300&display=swap');
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #3f708a;
+        }
+
+        #container {
+            background-color: #fff;
+            width: 320px;
+            height: 372px;
+            margin: auto;
+            margin-top: 10rem;
+            border-radius: 2rem;
+        }
+
+        img {
+            width: 200px;
+            height: 300px;
+            justify-items: center;
+            margin-left: 4rem;
+            margin-top: -52px;   
+        }
+
+        h1{
+            margin-top: -50px;
+            text-align: center;
+            font-family: system-ui;
+            color: darkslateblue;
+            letter-spacing: 3px;
+            font-weight: 500;
+        }
+
+        .capital{
+            margin-top: -10px;
+            text-align: center;
+            font-family: system-ui;
+            font-weight: 500;
+        }
+
+        .buttom-container{
+            display: inline-flex;
+            margin-top: -8px;
+            margin-left: 0px;
+            width: 100%;
+        }
+
+        .footer-container {
+            width: 33%;
+            margin-left: 10px;
+            text-align: center;
+            font-family: ui-monospace;
+            font-size: 14px;
+            margin-top: -9px;
+        }
+
+        h5 {
+            font-size: 13px;
+            font-family: 'Josefin Sans', sans-serif;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div id="container"></div>
+</body>
+<script>
+    const container = document.querySelector('#container');
+
+    const request = new XMLHttpRequest();
+    request.open('GET', "https://restcountries.com/v2/name/bharat");
+    request.send();
+
+    request.addEventListener('load', function(){
+        //console.log(this.responseText);
+        const [data] = JSON.parse(this.responseText);
+        //console.log(data);
+
+        const htmlData = `
+         <img src="${data.flags.svg}" alt="India's Flag">
+         <h1>${data.name}</h1>
+         <p class="capital">Capital : ${data.capital}</p>
+         <hr>
+        <div class="buttom-container">
+            <div class="footer-container">
+                <h5>${data.languages[0].nativeName}</h5>
+                <p class="footer">Native Language</p>
+            </div>
+            <div class="footer-container">
+                <h5>${data.population}</h5>
+                <p class="footer">Population</p>
+            </div>
+            <div class="footer-container">
+                <h5>${data.demonym}</h5>
+                <p class="footer">Currency</p>
+            </div>
+        </div>
+        `;
+
+        container.insertAdjacentHTML("afterbegin", htmlData);
+    })
+</script>
+</html>
